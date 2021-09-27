@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import InputTextField from '../../components/Core/InputTextField';
-import { Formik, Form, FormikHelpers, Field } from 'formik';
+import { Formik, Form } from 'formik';
 import Button from '../../components/Core/Button';
 import * as Yup from "yup";
-import InputSelectField from '../../components/Core/inputSelectField';
 import DetailSection from '../../components/DetailSection';
 
 interface journeyDetailsInterface {

@@ -8,20 +8,17 @@ import JourneyDetails from './JourneyDetails';
 
 const Home: React.FC= () => {
      const [currentStep, setCurrentStep] =useState<number>(1);
-     const [currentBtnLabel, setCurrentBtnLabel] =useState<string>("Enter Bid Details");
+     setCurrentStep(1);
     //  const cars = [ 
     //      {id: 1, name:"Hatchback"},
     //      {id: 2, name:"Sedan"},
     //      {id: 3, name:"SUV"}
     //  ]
-    const cars = ["Hatchback", "Sedan", "SUV" ]
+
 
      
      const totalStep = 4;
 
-    const handleButtonCLick = () => {
-
-    }
 
     return (
         <div>
