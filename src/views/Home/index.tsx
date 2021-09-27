@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Heading from '../../components/Heading';
 import Navbar from '../../components/Navbar';
 import JourneyDetails from './JourneyDetails';
@@ -7,8 +7,8 @@ import JourneyDetails from './JourneyDetails';
 
 
 const Home: React.FC= () => {
-     const [currentStep, setCurrentStep] =useState<number>(1);
-     setCurrentStep(1);
+    //  const [currentStep, setCurrentStep] =useState<number>(1);
+    const currentStep:number = 1;
     //  const cars = [ 
     //      {id: 1, name:"Hatchback"},
     //      {id: 2, name:"Sedan"},
