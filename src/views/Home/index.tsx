@@ -1,23 +1,56 @@
-import React from 'react'
+import { Form, Formik, FormikErrors, FormikProps, FormikTouched, FormikValues } from 'formik';
+import React, { useState } from 'react'
+import Button from '../../components/Core/Button';
+import InputTextField from '../../components/Core/InputTextField';
 import Heading from '../../components/Heading';
 import Navbar from '../../components/Navbar';
 import JourneyDetails from './JourneyDetails';
+import * as Yup from "yup";
+import BidDetails from './BidDetails';
+import Details from './details';
 
-// var currentStep:number;
 
+interface formValues {
+    sourceLocation: string,
+    destination: string,
+    carType:string,
+    noOfPerson:number,
+    }
+    const journeyDetailsSchema = Yup.object().shape({
+        sourceLocation: Yup.string()
+        .required(`Source Location is Required`),
+        destination: Yup.string()
+        .required('Destination is Required'),
+        carType: Yup.string().required("Car Type is Required"),
+    });
 
 const Home: React.FC= () => {
-    //  const [currentStep, setCurrentStep] =useState<number>(1);
-    const currentStep:number = 1;
-    //  const cars = [ 
-    //      {id: 1, name:"Hatchback"},
-    //      {id: 2, name:"Sedan"},
-    //      {id: 3, name:"SUV"}
-    //  ]
+    const initialValues : formValues =  { sourceLocation: "", destination: "", carType:"", noOfPerson: 0};
+    const [journeyDetails, setJourneyDetails] = useState<formValues>(initialValues);
+    const [isEdit, setEditable] = useState(false);
+    const [showDetails, setShowDetails] = useState(false);
+    const [buttonDisable, setButtonDisable] = useState(false);
+    const handleEditDetail = () => {
+        setEditable(!isEdit)
+        setCurrentStep(1)
+        setShowDetails(!showDetails)
+        setCurrentButtonLabel("Enter Bid Details");
+        setButtonDisable(false);
+    }
+     const [currentStep, setCurrentStep] =useState<number>(1);
+     const [currentButtonLabel, setCurrentButtonLabel] =useState<string>("Enter Bid Details");
+
 
 
      
      const totalStep = 4;
+
+     const renderForm = (formik: FormikProps<formValues>) => {
+        switch(currentStep) {
+            case 1: return <JourneyDetails formik={formik} isEdit={isEdit} handleEditDetail={()=>handleEditDetail()} journeyDetails={journeyDetails} />
+            case 2 : return <BidDetails />
+        }
+     }
 
 
     return (
@@ -25,7 +58,38 @@ const Home: React.FC= () => {
             <Navbar brandName="Vahak"/>
             <Heading name={`Place your Bid(${currentStep}/${totalStep} step)`} />
             <div className="formWrapper">
-             <JourneyDetails />
+             <div className="formContainer">
+
+             {showDetails && <Details formData={journeyDetails} handleEditDetail={()=>handleEditDetail()}/>}
+
+
+
+             <Formik initialValues={journeyDetails} 
+            validationSchema={journeyDetailsSchema}
+                onSubmit={(
+                    values: formValues,
+                  ) => {
+                      setJourneyDetails(values);
+                      setEditable(!isEdit) 
+                      setCurrentStep(currentStep+1);
+                      setShowDetails(true)
+                      setCurrentButtonLabel("Next");
+                      setButtonDisable(true);
+                     
+                                        
+                  }}
+            >
+             {formik => (
+                    
+            <Form>
+                {renderForm(formik)}
+            <Button name={currentButtonLabel} disabled={buttonDisable}/>
+            </Form>
+            )}
+            </Formik>
+
+            
+            </div>
             </div>
             
         </div>
