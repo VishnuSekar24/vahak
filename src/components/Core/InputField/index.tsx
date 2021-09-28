@@ -4,15 +4,17 @@ import { Field} from "formik";
 interface inputTextFieldProps {
     name: string,
     label:string,
-    errorMessage: string
+    errorMessage: string,
+    type?: "text" | "number"
+    maxLength?:number
     
 }
 
-const InputTextField: React.FC<inputTextFieldProps> = ({name,label, errorMessage}) => {
+const InputField: React.FC<inputTextFieldProps> = ({name,label, errorMessage,type="text", maxLength}) => {
     return (
         <>
         <div className="textFieldContainer">
-        <Field className="inputText"  type="text"  name={name} placeholder=" " />
+        <input className="inputText"  type={type} maxLength={maxLength} name={name} placeholder=" "  />
         <label className="inputLabel" htmlFor={name}>{label}</label>
         <span className={`errorMessage ${errorMessage ? "error" : ""}`} >{errorMessage || ""}</span>
         </div>
@@ -20,4 +22,4 @@ const InputTextField: React.FC<inputTextFieldProps> = ({name,label, errorMessage
     )
 }
 
-export default InputTextField;
+export default InputField;
