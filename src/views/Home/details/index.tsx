@@ -9,8 +9,10 @@ const Details:React.FC<any> = ({formData, handleEditDetail, currentStep, showBid
             {currentStep>=2 && 
             <DetailSection title="JOURNEY DETAILS" isEdit={true} handleEdit={()=>{
                handleEditDetail()}}>
+                   <div>
                <p>{`${formData.sourceLocation} - ${formData.destination}`}</p>
                <p>{`${formData.noOfPerson > 1 ? `${formData.noOfPerson}Persons` : "1 Person"},  ${formData.carType}`}</p>
+               </div>
            </DetailSection>}
 
            {currentStep===3  && formData.phoneNumber && <DetailSection title="BID DETAILS" isEdit={false} handleEdit={()=>{

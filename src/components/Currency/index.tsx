@@ -23,7 +23,7 @@ const Currency:React.FC<any> = ({handleChange, max, name}) => {
     return (
         <>
         <div className="currencyWrapper">
-        ₹<Field name={name}  className={`currency ${active ? "active" : ""}`} type="number" placeholder="0" style={{width:width}}  onChange={(e:any)=> {
+        ₹<Field name={name} min="0" pattern="[0-9]" maxLength={4} className={`currency ${active ? "active" : ""}`} type="number" placeholder="0" style={{width:width}}  onChange={(e:any)=> {
             handleChange(e);
              onInputChange(e)
              }} />

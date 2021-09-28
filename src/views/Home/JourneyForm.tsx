@@ -7,12 +7,11 @@ import InputTextField from '../../components/Core/InputTextField';
 
  
 
-const JourneyDetails:React.FC<any> = ({formik, isEdit, handleEditDetail, journeyDetails}) => {
+const JourneyForm:React.FC<any> = ({formik, isEdit, handleEditDetail, journeyDetails}) => {
     
 
     return (
         
-        // <div className="formContainer">
         <>
         { 
             <>
@@ -27,8 +26,7 @@ const JourneyDetails:React.FC<any> = ({formik, isEdit, handleEditDetail, journey
             
             
             </>
-            // </div>
     )
 }
 
-export default JourneyDetails;
+export default JourneyForm;

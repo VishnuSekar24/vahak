@@ -176,10 +176,11 @@ nav {
   padding: 30px;
   border-bottom: solid 1px $grey ;
   font-weight: 500;
-  .edit {
-    color: #3054D6;
-    cursor: pointer;
-  }
+  
+}
+.edit {
+  color: #3054D6;
+  cursor: pointer;
 }
 .detailSectionHeader {
     display: flex;
@@ -276,4 +277,16 @@ nav {
      font-size: 15px;
      color: $grey;
    }
+ }
+
+
+ .otpInput {
+   outline: none;
+   border: none;
+   border-bottom: solid 1px #000;
+   width: 20px;
+   padding: 10px;
+   margin: 5px;
+   font-size: 30px;
+   font-weight: bold;
  }

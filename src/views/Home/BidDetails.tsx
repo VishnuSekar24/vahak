@@ -7,7 +7,6 @@ import PhoneNumber from '../../components/PhoneNumber';
 
 
 const BidDetails:React.FC<any> = ({formik, enableNextButton, showBidForm, enableOTPButton}) => {
-    //  console.log(formik.values.phoneNumber.length === 10)
 
 
      if(formik && formik.values) {
