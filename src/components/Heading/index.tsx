@@ -1,13 +1,15 @@
 import React from 'react'
 
 interface headingProps {
-    name :string
+    title :string,
+    subTitle:string
 }
 
-const Heading: React.FC<headingProps> = ({name}) => {
+const Heading: React.FC<headingProps> = ({title, subTitle}) => {
     return (
         <div className="heading">
-            <p>{name}</p>
+            <p>{title}</p>
+            <p>{subTitle}</p>
         </div>
     )
 }

@@ -14,6 +14,8 @@ interface formValues {
     destination: string,
     carType:string,
     noOfPerson:number,
+    rateNegotiable:boolean,
+    // price: any,
     }
     const journeyDetailsSchema = Yup.object().shape({
         sourceLocation: Yup.string()
@@ -22,12 +24,30 @@ interface formValues {
         .required('Destination is Required'),
         carType: Yup.string().required("Car Type is Required"),
     });
+    const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+
+    const bidDetailsSchema = Yup.object().shape({
+        name: Yup.string()
+        .required(`Name Location is Required`),
+        phoneNumber: Yup.string().matches(phoneRegExp,"not")
+        // destination: Yup.string()
+        // .required('Destination is Required'),
+        // carType: Yup.string().required("Car Type is Required"),
+    });
+
+    // const validationSchema = [journeyDetailsSchema, bidDetailsSchema]
+
+
+
+
 
 const Home: React.FC= () => {
-    const initialValues : formValues =  { sourceLocation: "", destination: "", carType:"", noOfPerson: 0};
+    const initialValues : formValues =  { sourceLocation: "", destination: "", carType:"", noOfPerson: 0, rateNegotiable:false};
     const [journeyDetails, setJourneyDetails] = useState<formValues>(initialValues);
     const [isEdit, setEditable] = useState(false);
     const [showDetails, setShowDetails] = useState(false);
+    const [validationSchema, setSchema] =useState<any>(journeyDetailsSchema);
+    const [showBidForm, setBidForm] = useState(false);
     const [buttonDisable, setButtonDisable] = useState(false);
     const handleEditDetail = () => {
         setEditable(!isEdit)
@@ -35,6 +55,7 @@ const Home: React.FC= () => {
         setShowDetails(!showDetails)
         setCurrentButtonLabel("Enter Bid Details");
         setButtonDisable(false);
+        setSchema(journeyDetailsSchema);
     }
      const [currentStep, setCurrentStep] =useState<number>(1);
      const [currentButtonLabel, setCurrentButtonLabel] =useState<string>("Enter Bid Details");
@@ -47,7 +68,7 @@ const Home: React.FC= () => {
      const renderForm = (formik: FormikProps<formValues>) => {
         switch(currentStep) {
             case 1: return <JourneyDetails formik={formik} isEdit={isEdit} handleEditDetail={()=>handleEditDetail()} journeyDetails={journeyDetails} />
-            case 2 : return <BidDetails enableNextButton={(priceLength:number)=> setButtonDisable(priceLength > 0 ?false: true)}  />
+            case 2 : return <BidDetails formik={formik} enableNextButton={(priceLength:number)=> setButtonDisable(!showBidForm &&priceLength > 0 ?false: true)} showBidForm={showBidForm}  />
         }
      }
 
@@ -55,19 +76,19 @@ const Home: React.FC= () => {
     return (
         <div>
             <Navbar brandName="Vahak"/>
-            <Heading name={`Place your Bid(${currentStep}/${totalStep} step)`} />
+            <Heading title={`Place your Bid`} subTitle={`(${currentStep}/${totalStep} step)`} />
             <div className="formWrapper">
              <div className="formContainer">
 
              {showDetails && <Details formData={journeyDetails} handleEditDetail={()=>handleEditDetail()}/>}
 
-
-
              <Formik initialValues={journeyDetails} 
-            validationSchema={journeyDetailsSchema}
+            validationSchema={validationSchema}
+            onChange={(values: formValues)=>console.log("values-->", values)}
                 onSubmit={(
                     values: formValues,
                   ) => {
+                      console.log("values-->", values)
 
                     if(currentStep === 1) {
                         setJourneyDetails(values);
@@ -76,14 +97,21 @@ const Home: React.FC= () => {
                         setShowDetails(true)
                         setCurrentButtonLabel("Next");
                         setButtonDisable(true);
+                    
+                    }
+
+                    if( currentStep === 2) {
+                        setBidForm(true)
+                        setCurrentButtonLabel("Verify via OTP");
+                        setButtonDisable(true);
+                        setSchema(bidDetailsSchema);
                     }
                       
                      
                                         
                   }}
             >
-             {formik => (
-                    
+             {formik => (                   
             <Form>
                 {renderForm(formik)}
             <Button name={currentButtonLabel} disabled={buttonDisable}/>

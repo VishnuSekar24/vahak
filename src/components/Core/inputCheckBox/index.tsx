@@ -1,3 +1,4 @@
+import { Field } from 'formik';
 import React from 'react'
 
 interface CheckboxInterface {
@@ -7,7 +8,7 @@ interface CheckboxInterface {
 const InputCheckBox:React.FC<CheckboxInterface> = ({name, label}) => {
     return (
         <div className="checkBox">
-        <input type="checkbox"  name={name} />
+        <Field type="checkbox"  name={name} />
         <label>{label}</label> 
         
         </div>
