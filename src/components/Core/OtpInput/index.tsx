@@ -1,4 +1,3 @@
-import { Field } from 'formik';
 import React from 'react'
 
 // interface OtpInterface {
@@ -6,7 +5,7 @@ import React from 'react'
 // }
   
 
-const OtpInput:React.FC<any> = ({noOfInputs, handleOtpChange, formik}) => {
+const OtpInput:React.FC<any> = ({noOfInputs,handleOtpChange, formik}) => {
     const otpInputs = []
     for(let i=1;i<=noOfInputs;i++) {
           otpInputs.push(`otp${i}`);
@@ -28,7 +27,6 @@ const OtpInput:React.FC<any> = ({noOfInputs, handleOtpChange, formik}) => {
         handleOtpChange(Number(otpString.join("")));
         console.log(Number(otpString.join("")), "sample")
     }
-    
     // formik.setFieldValue("otp1", "23");
     return (
         <div className="otpWrapper">

@@ -79,7 +79,7 @@ const Home: React.FC = () => {
             case 3: return <OtpForm formik={formik} handleOtpChange={(value:number)=> {
                 // handleOtpChange
                 console.log(value, "fds")
-                formik.handleChange("otp")(value)
+                // formik.handleChange("otp")(value)
             }
             } />
         }
@@ -147,7 +147,7 @@ const Home: React.FC = () => {
                         }}
                     >
                         {formik => (
-                            console.log(formik, "formo"),
+                            // console.log(formik, "formo"),
                             <Form>
                                 {renderForm(formik)}
                                 <Button name={currentButtonLabel} disabled={buttonDisable} />

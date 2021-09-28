@@ -1,14 +1,13 @@
-import { Field } from "formik";
 import React, { useState } from "react"
 
-interface CurrencyInterface {
-    name?: string,
-    onChange?: (e: any) => void,
-    // handleChange?: (e: any) => void,
-    maxLength?: number
-}
+// interface CurrencyInterface {
+//     name?: string,
+//     onChange?: (e: any) => void,
+//     // handleChange?: (e: any) => void,
+//     maxLength?: number
+// }
 
-const Currency: React.FC<any> = ({ handleChange, onChange, maxLength, name }) => {
+const Currency: React.FC<any> = ({ handleChange, onChange, maxLength, value, name }) => {
     const [width, SetWidth] = useState<number>(28);
     const [active, setActive] = useState<boolean>(false);
 
@@ -31,12 +30,11 @@ const Currency: React.FC<any> = ({ handleChange, onChange, maxLength, name }) =>
             <div className="currencyWrapper">
                 ₹<input 
                     name={name}
-                    pattern="[0-9]"
-                    max={"5"}
+                    value={value}
                     maxLength={maxLength}
                     className={`currency ${active ? "active" : ""}`}
                     type="text"
-                    placeholder="0"
+                    placeholder={value || "0"}
                     style={{ width: width }}
                     onChange={e => {
                         handleChange(e)

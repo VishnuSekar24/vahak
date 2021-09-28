@@ -179,6 +179,13 @@ nav {
   
 }
 .edit {
+  display: flex;
+  align-items: center;
+  img{
+    width: 20px;
+    height: 20px;
+    margin-right: 3px;
+  }
   color: #3054D6;
   cursor: pointer;
 }
@@ -260,6 +267,12 @@ nav {
    align-items: center;
    padding: 0px 10px;
    span {
+     display: flex;
+     align-items: center;
+     img{
+       width: 25px;
+       height: 25px;
+     }
      margin-left: 5px;
      color: #25D366;
    }
@@ -268,7 +281,11 @@ nav {
 
 
  .priceSection {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
    p{
+     margin: 0px;
      font-size: 30px;
      font-weight: bold;
    }
@@ -280,6 +297,10 @@ nav {
  }
 
 
+
+ .otpWrapper {
+   padding: 10px 30px;
+ }
  .otpInput {
    outline: none;
    border: none;

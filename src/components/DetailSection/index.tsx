@@ -1,4 +1,5 @@
 import React from 'react'
+import edit from "../../assets/icons/edit.png";
 
 
 
@@ -21,7 +22,7 @@ const DetailSection: React.FC<detailSectionInterface> = ({title, children, handl
         <div className="detailSectionHeader">
             
             <div className="title">{title}</div>
-            {isEdit && <div className="edit" onClick={(e)=> handleEdit(e)}>Edit</div>}
+            {isEdit && <div className="edit" onClick={(e)=> handleEdit(e)}><img src={edit} alt="edit"/>Edit</div>}
         </div>
         <div className="detailsSectionBody">{children}</div>
         </div>

@@ -19,20 +19,26 @@ const BidDetails:React.FC<any> = ({formik, enableNextButton, showBidForm, enable
     return (
         <>
             <div className="bidSection">
-                <Currency name="price" handleChange={(e: any) =>  enableNextButton(e.target.value.length)} max={10} />
+                <Currency name="price" value={formik.values.price} handleChange={(e: any) =>  {
+                    enableNextButton(e.target.value.length)
+                    e.target.value && formik.handleChange("price")(e.target.value)
+                } 
+            
+            }/>
                 <InputCheckBox name="rateNegotiable" label="Rate Negotiable" />
                 
             </div>
 
             {showBidForm && 
             <>
-            <PhoneNumber name={'phoneNumber'} label={'Enter your Number'} errorMessage={formik.errors.phoneNumber} />
+            <PhoneNumber name={'phoneNumber'} label={'Enter your Number'} value={formik.values.phoneNumber} errorMessage={formik.errors.phoneNumber} 
+            onChange={e=>formik.handleChange("phoneNumber")(e)}/>
             <InputField name={'name'} label={'Enter your Name'} errorMessage={formik.errors.name}  onChange={e=>formik.handleChange("name")(e)}/>
             
             <InputField name={'remarks'} label={'Enter Remarks (optional)'} errorMessage={''} />
             </>
             }
-              </>
+          </>
             
                 
         
