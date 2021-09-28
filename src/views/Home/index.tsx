@@ -11,15 +11,15 @@ import OtpForm from './OtpForm';
 
 
 interface formValues {
-    sourceLocation: string,
-    destination: string,
-    carType: string,
-    noOfPerson: number,
-    rateNegotiable: boolean,
-    // price: any,
-    phoneNumber: any
-    remarks: string,
-    otp:string
+    sourceLocation?: string,
+    destination?: string,
+    carType?: string,
+    noOfPerson?: number,
+    rateNegotiable?: boolean,
+    price?: number,
+    phoneNumber?: any
+    remarks?: string,
+    otp?:string
 }
 const journeyDetailsSchema = Yup.object().shape({
     sourceLocation: Yup.string()
@@ -44,7 +44,7 @@ const bidDetailsSchema = Yup.object().shape({
 
 
 const Home: React.FC = () => {
-    const initialValues: formValues = { sourceLocation: "", destination: "", carType: "", noOfPerson: 0, rateNegotiable: false, phoneNumber: "", remarks: "" , otp:""};
+    const initialValues: any = { sourceLocation: "", destination: "", carType: "", noOfPerson: 0, rateNegotiable: false, phoneNumber: "", remarks: "" , otp:""};
     const [formData, setJourneyDetails] = useState<formValues>(initialValues);
     const [isEdit, setEditable] = useState(false);
     const [showDetails, setShowDetails] = useState(false);
@@ -102,7 +102,7 @@ const Home: React.FC = () => {
                     <Details currentStep={currentStep} showBidForm={showBidForm} formData={formData} handleEditDetail={() => handleEditDetail()} />
 
                     <Formik
-                        initialValues={initialValues}
+                        initialValues={{}}
                         validationSchema={validationSchema}
                         onChange={(values: formValues) => console.log("values-->", values)}
                         onSubmit={(
