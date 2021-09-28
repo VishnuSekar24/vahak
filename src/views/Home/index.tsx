@@ -15,7 +15,9 @@ interface formValues {
     carType:string,
     noOfPerson:number,
     rateNegotiable:boolean,
-    // price: any,
+    price: any,
+    phoneNumber: any
+    remarks:string
     }
     const journeyDetailsSchema = Yup.object().shape({
         sourceLocation: Yup.string()
@@ -29,10 +31,8 @@ interface formValues {
     const bidDetailsSchema = Yup.object().shape({
         name: Yup.string()
         .required(`Name Location is Required`),
-        phoneNumber: Yup.string().matches(phoneRegExp,"not")
-        // destination: Yup.string()
-        // .required('Destination is Required'),
-        // carType: Yup.string().required("Car Type is Required"),
+        phoneNumber: Yup.string().matches(phoneRegExp,"Phone Number is not valid").max(10,"too long").min(10, "too short")
+
     });
 
     // const validationSchema = [journeyDetailsSchema, bidDetailsSchema]
@@ -42,7 +42,7 @@ interface formValues {
 
 
 const Home: React.FC= () => {
-    const initialValues : formValues =  { sourceLocation: "", destination: "", carType:"", noOfPerson: 0, rateNegotiable:false};
+    const initialValues : formValues =  { sourceLocation: "", destination: "", carType:"", noOfPerson: 0, rateNegotiable:false, price:"", phoneNumber:"", remarks:""};
     const [journeyDetails, setJourneyDetails] = useState<formValues>(initialValues);
     const [isEdit, setEditable] = useState(false);
     const [showDetails, setShowDetails] = useState(false);
@@ -57,7 +57,7 @@ const Home: React.FC= () => {
         setButtonDisable(false);
         setSchema(journeyDetailsSchema);
     }
-     const [currentStep, setCurrentStep] =useState<number>(1);
+     let [currentStep, setCurrentStep] =useState<number>(1);
      const [currentButtonLabel, setCurrentButtonLabel] =useState<string>("Enter Bid Details");
 
     //  const 
@@ -68,7 +68,11 @@ const Home: React.FC= () => {
      const renderForm = (formik: FormikProps<formValues>) => {
         switch(currentStep) {
             case 1: return <JourneyDetails formik={formik} isEdit={isEdit} handleEditDetail={()=>handleEditDetail()} journeyDetails={journeyDetails} />
-            case 2 : return <BidDetails formik={formik} enableNextButton={(priceLength:number)=> setButtonDisable(!showBidForm &&priceLength > 0 ?false: true)} showBidForm={showBidForm}  />
+            case 2 : return <BidDetails formik={formik} enableNextButton={(priceLength:number)=> setButtonDisable(!showBidForm &&priceLength > 0 ?false: true)} showBidForm={showBidForm}   enableOTPButton={(value:boolean)=> {
+                console.log("value-->", value)
+            
+                setButtonDisable(!value)
+            }}/>
         }
      }
 
@@ -80,7 +84,7 @@ const Home: React.FC= () => {
             <div className="formWrapper">
              <div className="formContainer">
 
-             {showDetails && <Details formData={journeyDetails} handleEditDetail={()=>handleEditDetail()}/>}
+             {showDetails && <Details currentStep={currentStep} showBidForm={showBidForm} formData={journeyDetails} handleEditDetail={()=>handleEditDetail()}/>}
 
              <Formik initialValues={journeyDetails} 
             validationSchema={validationSchema}
@@ -95,16 +99,22 @@ const Home: React.FC= () => {
                         setEditable(!isEdit) 
                         setCurrentStep(currentStep+1);
                         setShowDetails(true)
-                        setCurrentButtonLabel("Next");
+                        setCurrentButtonLabel(`${!showBidForm ? "Next" : "Verify via OTP"}`);
                         setButtonDisable(true);
                     
                     }
 
                     if( currentStep === 2) {
                         setBidForm(true)
+                        setJourneyDetails(values);
                         setCurrentButtonLabel("Verify via OTP");
                         setButtonDisable(true);
                         setSchema(bidDetailsSchema);
+                    }
+
+                    if( currentStep === 2 && showBidForm) {
+                        setBidForm(false)
+                        setCurrentStep(currentStep+1)
                     }
                       
                      

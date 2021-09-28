@@ -5,13 +5,14 @@ import React from 'react'
 interface detailSectionInterface{
     title:string
     children:any,
-    handleEdit:any
+    handleEdit:any,
+    isEdit:boolean
 }
 
 
 
 
-const DetailSection: React.FC<detailSectionInterface> = ({title, children, handleEdit}) => {
+const DetailSection: React.FC<detailSectionInterface> = ({title, children, handleEdit, isEdit}) => {
     return (
         <>
         <div className="detailSection">
@@ -20,7 +21,7 @@ const DetailSection: React.FC<detailSectionInterface> = ({title, children, handl
         <div className="detailSectionHeader">
             
             <div className="title">{title}</div>
-            <div className="edit" onClick={(e)=> handleEdit(e)}>Edit</div>
+            {isEdit && <div className="edit" onClick={(e)=> handleEdit(e)}>Edit</div>}
         </div>
         <div className="detailsSectionBody">{children}</div>
         </div>
