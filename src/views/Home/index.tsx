@@ -14,12 +14,12 @@ interface formValues {
     sourceLocation?: string,
     destination?: string,
     carType?: string,
-    noOfPerson?: number,
+    noOfPerson?: string,
     rateNegotiable?: boolean,
     price?: number,
     phoneNumber?: any
     remarks?: string,
-    otp?:string
+    otp?:any,
 }
 const journeyDetailsSchema = Yup.object().shape({
     sourceLocation: Yup.string()
@@ -76,7 +76,12 @@ const Home: React.FC = () => {
 
                 setButtonDisable(!value)
             }} />
-            case 3: return <OtpForm formik={formik} />
+            case 3: return <OtpForm formik={formik} handleOtpChange={(value:number)=> {
+                // handleOtpChange
+                console.log(value, "fds")
+                formik.handleChange("otp")(value)
+            }
+            } />
         }
 
 
@@ -102,7 +107,7 @@ const Home: React.FC = () => {
                     <Details currentStep={currentStep} showBidForm={showBidForm} formData={formData} handleEditDetail={() => handleEditDetail()} />
 
                     <Formik
-                        initialValues={{}}
+                        initialValues={{sourceLocation:""}}
                         validationSchema={validationSchema}
                         onChange={(values: formValues) => console.log("values-->", values)}
                         onSubmit={(

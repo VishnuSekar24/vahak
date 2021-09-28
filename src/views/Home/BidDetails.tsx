@@ -26,8 +26,8 @@ const BidDetails:React.FC<any> = ({formik, enableNextButton, showBidForm, enable
 
             {showBidForm && 
             <>
-            <PhoneNumber name={'phoneNumber'} label={'Enter your Number'} errorMessage={formik.errors && formik.touched.phoneNumber && formik.errors.phoneNumber} />
-            <InputField name={'name'} label={'Enter your Name'} errorMessage={formik.errors && formik.touched.name && formik.errors.name} />
+            <PhoneNumber name={'phoneNumber'} label={'Enter your Number'} errorMessage={formik.errors.phoneNumber} />
+            <InputField name={'name'} label={'Enter your Name'} errorMessage={formik.errors.name}  onChange={e=>formik.handleChange("name")(e)}/>
             
             <InputField name={'remarks'} label={'Enter Remarks (optional)'} errorMessage={''} />
             </>
