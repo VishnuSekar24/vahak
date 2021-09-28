@@ -15,7 +15,7 @@ interface formValues {
     carType:string,
     noOfPerson:number,
     rateNegotiable:boolean,
-    price: any,
+    // price: any,
     phoneNumber: any
     remarks:string
     }
@@ -42,7 +42,7 @@ interface formValues {
 
 
 const Home: React.FC= () => {
-    const initialValues : formValues =  { sourceLocation: "", destination: "", carType:"", noOfPerson: 0, rateNegotiable:false, price:"", phoneNumber:"", remarks:""};
+    const initialValues : formValues =  { sourceLocation: "", destination: "", carType:"", noOfPerson: 0, rateNegotiable:false, phoneNumber:"", remarks:""};
     const [journeyDetails, setJourneyDetails] = useState<formValues>(initialValues);
     const [isEdit, setEditable] = useState(false);
     const [showDetails, setShowDetails] = useState(false);
@@ -84,7 +84,7 @@ const Home: React.FC= () => {
             <div className="formWrapper">
              <div className="formContainer">
 
-             {showDetails && <Details currentStep={currentStep} showBidForm={showBidForm} formData={journeyDetails} handleEditDetail={()=>handleEditDetail()}/>}
+             <Details currentStep={currentStep} showBidForm={showBidForm} formData={journeyDetails} handleEditDetail={()=>handleEditDetail()}/>
 
              <Formik initialValues={journeyDetails} 
             validationSchema={validationSchema}
@@ -93,20 +93,20 @@ const Home: React.FC= () => {
                     values: formValues,
                   ) => {
                       console.log("values-->", values)
-
+                      setJourneyDetails(values);
                     if(currentStep === 1) {
-                        setJourneyDetails(values);
+                        
                         setEditable(!isEdit) 
                         setCurrentStep(currentStep+1);
-                        setShowDetails(true)
-                        setCurrentButtonLabel(`${!showBidForm ? "Next" : "Verify via OTP"}`);
+                        setCurrentButtonLabel("Next")
+                        // setCurrentButtonLabel(`${!showBidForm ? "Next" : "Verify via OTP"}`);
                         setButtonDisable(true);
                     
                     }
 
                     if( currentStep === 2) {
                         setBidForm(true)
-                        setJourneyDetails(values);
+                        
                         setCurrentButtonLabel("Verify via OTP");
                         setButtonDisable(true);
                         setSchema(bidDetailsSchema);

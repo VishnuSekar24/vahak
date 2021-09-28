@@ -176,8 +176,12 @@ nav {
   padding: 30px;
   border-bottom: solid 1px $grey ;
   font-weight: 500;
+  .edit {
+    color: #3054D6;
+    cursor: pointer;
+  }
 }
-  .detailSectionHeader {
+.detailSectionHeader {
     display: flex;
     justify-content: space-between;
     .title {
@@ -185,6 +189,13 @@ nav {
       font-weight: 500;
       font-size: 12px;
     }
+
+  
+  }
+  .detailsSectionBody {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
 
@@ -240,13 +251,6 @@ nav {
 
 
 
-
-  .hr {
-    // height: 2px;
-    // background-color: $grey;
-    border-bottom: solid 1px $grey ;
-  }
-
  .updateSection {
    background-color: rgba(205, 225, 241, 0.527);
    height: 50px;
@@ -257,5 +261,19 @@ nav {
    span {
      margin-left: 5px;
      color: #25D366;
+   }
+ }
+
+
+
+ .priceSection {
+   p{
+     font-size: 30px;
+     font-weight: bold;
+   }
+   span {
+     font-weight: 500;
+     font-size: 15px;
+     color: $grey;
    }
  }
