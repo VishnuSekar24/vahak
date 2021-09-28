@@ -31,6 +31,35 @@ nav {
   padding: 20px 16px;
 }
 
+
+.currencyWrapper{
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 50px;
+}
+
+.currency {
+  margin-left: 5px;
+  font-weight: bold;
+  font-size: 50px;
+  border: none;
+  color: #0D2D11;
+  opacity: 0.12;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  caret-color:#3054D6;
+  &.active{
+    opacity: 1;
+    color: #000;
+  }
+  &:focus{
+    outline: none;
+    
+  }
+}
+
   .inputText {
     height: 40px;
     font-size: 16px;
@@ -151,5 +180,57 @@ nav {
       color: $grey;
       font-weight: 500;
       font-size: 12px;
+    }
+  }
+
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
+
+
+
+  input[type=checkbox] {
+    background-color: blue;
+    color: blue;
+    &checked {
+      background-color: blue;
+    }
+  }
+
+
+
+
+
+
+
+
+  .bidSection {
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
+    padding: 30px 0px;
+  }
+  .justify-contnent-center {
+    justify-content: center;
+  }
+
+  .checkBox {
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+    input[type=checkbox] {
+      width: 18px;
+      height: 18px;
+    }
+    label {
+      margin-left: 6px;
     }
   }

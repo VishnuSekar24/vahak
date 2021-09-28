@@ -1,7 +1,6 @@
-import { Form, Formik, FormikErrors, FormikProps, FormikTouched, FormikValues } from 'formik';
+import { Form, Formik, FormikProps } from 'formik';
 import React, { useState } from 'react'
 import Button from '../../components/Core/Button';
-import InputTextField from '../../components/Core/InputTextField';
 import Heading from '../../components/Heading';
 import Navbar from '../../components/Navbar';
 import JourneyDetails from './JourneyDetails';
@@ -40,7 +39,7 @@ const Home: React.FC= () => {
      const [currentStep, setCurrentStep] =useState<number>(1);
      const [currentButtonLabel, setCurrentButtonLabel] =useState<string>("Enter Bid Details");
 
-
+    //  const 
 
      
      const totalStep = 4;
@@ -48,7 +47,7 @@ const Home: React.FC= () => {
      const renderForm = (formik: FormikProps<formValues>) => {
         switch(currentStep) {
             case 1: return <JourneyDetails formik={formik} isEdit={isEdit} handleEditDetail={()=>handleEditDetail()} journeyDetails={journeyDetails} />
-            case 2 : return <BidDetails />
+            case 2 : return <BidDetails enableNextButton={(priceLength:number)=> setButtonDisable(priceLength > 0 ?false: true)}  />
         }
      }
 
@@ -69,12 +68,16 @@ const Home: React.FC= () => {
                 onSubmit={(
                     values: formValues,
                   ) => {
-                      setJourneyDetails(values);
-                      setEditable(!isEdit) 
-                      setCurrentStep(currentStep+1);
-                      setShowDetails(true)
-                      setCurrentButtonLabel("Next");
-                      setButtonDisable(true);
+
+                    if(currentStep === 1) {
+                        setJourneyDetails(values);
+                        setEditable(!isEdit) 
+                        setCurrentStep(currentStep+1);
+                        setShowDetails(true)
+                        setCurrentButtonLabel("Next");
+                        setButtonDisable(true);
+                    }
+                      
                      
                                         
                   }}
