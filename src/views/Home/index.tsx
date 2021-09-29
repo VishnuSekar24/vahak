@@ -5,7 +5,7 @@ import Heading from '../../components/Heading';
 import Navbar from '../../components/Navbar';
 import JourneyForm from './JourneyForm';
 import * as Yup from "yup";
-import BidDetails from './BidDetails';
+import BidForm from './BidForm';
 import Details from './details';
 import OtpForm from './OtpForm';
 
@@ -68,7 +68,7 @@ const Home: React.FC = () => {
     const renderForm = (formik: FormikProps<formValues>) => {
         switch (currentStep) {
             case 1: return <JourneyForm formik={formik} isEdit={isEdit} handleEditDetail={() => handleEditDetail()} journeyDetails={formData} />
-            case 2: return <BidDetails formik={formik} enableNextButton={(priceLength: number) => setButtonDisable(!showBidForm && Number(priceLength) > 0 ? false : true)} showBidForm={showBidForm} enableOTPButton={(value: boolean) => {
+            case 2: return <BidForm formik={formik} enableNextButton={(priceLength: number) => setButtonDisable(!showBidForm && Number(priceLength) > 0 ? false : true)} showBidForm={showBidForm} enableOTPButton={(value: boolean) => {
                 setButtonDisable(!value)
             }} />
             case 3: return <OtpForm formik={formik} />
