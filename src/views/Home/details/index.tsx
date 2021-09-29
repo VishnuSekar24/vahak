@@ -11,7 +11,7 @@ const Details:React.FC<any> = ({formData, handleEditDetail, currentStep, showBid
                handleEdit={()=>{handleEditDetail()}}>
                 <div>
                <p>{`${formData.sourceLocation} - ${formData.destination}`}</p>
-               <p>{`${formData.noOfPerson > 1 ? `${formData.noOfPerson}Persons` : "1 Person"},  ${formData.carType}`}</p>
+               <p>{`${formData.noOfPerson > 1 ? `${formData.noOfPerson} Persons` : "1 Person"},  ${formData.carType}`}</p>
                </div>
            </DetailSection>}
 
