@@ -1,18 +1,10 @@
-import { Field } from 'formik';
 import React from 'react'
-
-// interface OtpInterface {
-//     noOfInputs:number
-// }
-  
 
 const OtpInput:React.FC<any> = ({noOfInputs,handleOtpChange, formik}) => {
     const otpInputs = []
     for(let i=1;i<=noOfInputs;i++) {
           otpInputs.push(`otp${i}`);
     }
-
-    let test: {name: string, otp: string}[] = [];
     const handleChange = (name:string ,e: string) => {
         formik.handleChange(name)(e)
     }

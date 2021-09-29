@@ -82,7 +82,7 @@ const Home: React.FC = () => {
         let flag = false;
 
         for(let i=0;i<otpArr.length;i++) {  
-            if(String(values[`otp${i+1}`]) == otpArr[i]) {
+            if(String(values[`otp${i+1}`]) === otpArr[i]) {
                 flag=true
             } else {
                 flag=false
