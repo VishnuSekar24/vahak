@@ -9,7 +9,7 @@ import React, { useState } from "react"
 
 const Currency: React.FC<any> = ({ handleChange, onChange, maxLength, value, name }) => {
     const [width, SetWidth] = useState<number>(28);
-    const [active, setActive] = useState<boolean>(false);
+    const [active, setActive] = useState<boolean>(value ?true : false);
 
 
 
@@ -34,7 +34,7 @@ const Currency: React.FC<any> = ({ handleChange, onChange, maxLength, value, nam
                     maxLength={maxLength}
                     className={`currency ${active ? "active" : ""}`}
                     type="text"
-                    placeholder={value || "0"}
+                    placeholder={"0"}
                     style={{ width: width }}
                     onChange={e => {
                         handleChange(e)

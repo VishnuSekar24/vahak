@@ -21,7 +21,7 @@ const BidDetails:React.FC<any> = ({formik, enableNextButton, showBidForm, enable
             <div className="bidSection">
                 <Currency name="price" value={formik.values.price} handleChange={(e: any) =>  {
                     enableNextButton(e.target.value.length)
-                    e.target.value && formik.handleChange("price")(e.target.value)
+                    formik.handleChange("price")(e)
                 } 
             
             }/>

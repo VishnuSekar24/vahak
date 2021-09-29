@@ -152,7 +152,7 @@ const Home: React.FC = () => {
                         }}
                     >
                         {formik => (
-                            // console.log(formik, "formo"),
+                            console.log(formik, "formo"),
                             <Form>
                                 {renderForm(formik)}
                                 <Button name={currentButtonLabel} disabled={buttonDisable} />

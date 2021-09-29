@@ -35,14 +35,17 @@ const JourneyForm:React.FC<any> = ({formik, isEdit, handleEditDetail, journeyDet
                       }}
                      onChange={e=>formik.handleChange("carType")(e?.value)}
                     />
+                    <span className={`errorMessage ${formik.errors.carType ? "error" : ""}`} >{formik.errors.carType || ""}</span>
                     </div>
                     <InputField label="Number of Travellers" name="noOfPerson"  value={values.noOfPerson} maxLength={1} errorMessage={formik.errors.noOfPerson} onChange={e=>{
 
                         formik.handleChange("noOfPerson")(e.target.value)
                         console.log(e.target.value);
-                        if(formik.values.carType === "suv" && Number(e.target.value>5)) {
-
+                        console.log("sdf", formik.values.noOfPerson)
+                        if(formik.values.carType === "suv" && Number(e.target.value) > 5) {
+                      console.log("errrr")
                             formik.setErrors({ noOfPerson: "not valid"})
+                            console.log("formik", formik)
                         }
                         else if (e.target.value>4) {
 
