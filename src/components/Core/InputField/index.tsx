@@ -15,7 +15,7 @@ const InputField: React.FC<inputTextFieldProps> = ({name,label, errorMessage,typ
     return (
         <>
         <div className="textFieldContainer">
-        <input className="inputText"  type={type} maxLength={5} name={name}  value={value} placeholder=" "  onChange={onChange}/>
+        <input className="inputText"  type={type} maxLength={maxLength} name={name}  value={value} placeholder=" "  onChange={onChange}/>
         <label className="inputLabel" htmlFor={name}>{label}</label>
         <span className={`errorMessage ${errorMessage ? "error" : ""}`} >{errorMessage || ""}</span>
         </div>

@@ -33,9 +33,9 @@ const BidDetails:React.FC<any> = ({formik, enableNextButton, showBidForm, enable
             <>
             <PhoneNumber name={'phoneNumber'} label={'Enter your Number'} value={formik.values.phoneNumber} errorMessage={formik.errors.phoneNumber} 
             onChange={e=>formik.handleChange("phoneNumber")(e)}/>
-            <InputField name={'name'} label={'Enter your Name'} errorMessage={formik.errors.name}  onChange={e=>formik.handleChange("name")(e)}/>
+            <InputField name={'name'} label={'Enter your Name'} errorMessage={formik.errors.name} value={formik.values.name} onChange={e=>formik.handleChange("name")(e)}/>
             
-            <InputField name={'remarks'} label={'Enter Remarks (optional)'} errorMessage={''} />
+            <InputField name={'remarks'} label={'Enter Remarks (optional)'} errorMessage={''} value={formik.values.remarks} onChange={e=>formik.handleChange("remarks")(e)}/>
             </>
             }
           </>

@@ -20,6 +20,7 @@ interface formValues {
     phoneNumber?: any
     remarks?: string,
     otp?:any,
+    car?:string
 }
 const journeyDetailsSchema = Yup.object().shape({
     sourceLocation: Yup.string()
@@ -27,6 +28,7 @@ const journeyDetailsSchema = Yup.object().shape({
     destination: Yup.string()
         .required('Destination is Required'),
     carType: Yup.string().required("Car Type is Required"),
+    noOfPerson: Yup.string().required("No of Person is Required"),
 });
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
@@ -131,6 +133,9 @@ const Home: React.FC = () => {
                                 setCurrentButtonLabel("Verify via OTP");
                                 setButtonDisable(true);
                                 setSchema(bidDetailsSchema);
+                                // if(values.carType==="suv" && Number(values.noOfPerson) >5) {
+                                //    setErrors({})
+                                // }
                             }
 
                             if (currentStep === 2 && showBidForm) {
