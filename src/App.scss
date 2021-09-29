@@ -334,9 +334,8 @@ nav {
  }
 
 
-
- .otpWrapper {
-   padding: 10px 30px;
+ .otpContainer {
+  padding: 15px 30px;
  }
  .otpInput {
    outline: none;
@@ -367,11 +366,8 @@ nav {
   [class$="-Input"] {
       min-height: 48px !important;
       max-height: 48px;
-      // padding: 20px;
   }
-  [class$="-control"] {
-    // background-color: #3054D6;
-    
+  [class$="-control"] {  
       min-height: 48px !important;
       max-height: 48px;
 

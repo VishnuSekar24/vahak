@@ -14,7 +14,6 @@ const Currency: React.FC<any> = ({ handleChange, onChange, maxLength, value, nam
 
 
     const onInputChange = (e: any) => {
-        console.log(e.target.value);
         if (e.target.value && e.target.value.length) {
             SetWidth(e.target.value.length * 28)
             setActive(true)

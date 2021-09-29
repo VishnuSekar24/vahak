@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Select from "react-select"
 import InputField from '../../components/Core/InputField';
 
@@ -15,6 +15,7 @@ const JourneyForm:React.FC<any> = ({formik, isEdit, handleEditDetail, journeyDet
         { value: 'sedan', label: 'Sedan' },
         { value: 'suv', label: 'SUV' }
       ];
+      const [carErrorMessage, setErrorMessage] = useState("");
       
     return (
         
@@ -37,18 +38,20 @@ const JourneyForm:React.FC<any> = ({formik, isEdit, handleEditDetail, journeyDet
                     />
                     <span className={`errorMessage ${formik.errors.carType ? "error" : ""}`} >{formik.errors.carType || ""}</span>
                     </div>
-                    <InputField label="Number of Travellers" name="noOfPerson"  value={values.noOfPerson} maxLength={1} errorMessage={formik.errors.noOfPerson} onChange={e=>{
-
-                        formik.handleChange("noOfPerson")(e.target.value)
-                        console.log(e.target.value);
-                        console.log("sdf", formik.values.noOfPerson)
+                    <InputField 
+                        label="Number of Travellers" 
+                        name="noOfPerson"  
+                        value={values.noOfPerson} 
+                        maxLength={1} 
+                        errorMessage={formik.errors.noOfPerson || carErrorMessage} 
+                        onChange={e=>{
+                        formik.handleChange("noOfPerson")(e.target.value)   
                         if(formik.values.carType === "suv" && Number(e.target.value) > 5) {
-                      console.log("errrr")
+                            setErrorMessage("No of Persons exceeds limit")
                             formik.setErrors({ noOfPerson: "not valid"})
-                            console.log("formik", formik)
                         }
-                        else if (e.target.value>4) {
-
+                        else if (Number(e.target.value)>4) {
+                            setErrorMessage("No of Persons exceeds limit")
                             formik.setErrors({ noOfPerson: "not valid"})
                         }
                         

@@ -19,7 +19,7 @@ interface formValues {
     price?: number,
     phoneNumber?: any
     remarks?: string,
-    otp?:any,
+    otp?:string,
     car?:string
 }
 const journeyDetailsSchema = Yup.object().shape({
@@ -38,8 +38,6 @@ const bidDetailsSchema = Yup.object().shape({
     phoneNumber: Yup.string().matches(phoneRegExp, "Phone Number is not valid").max(10, "too long").min(10, "too short")
 
 });
-
-// const validationSchema = [journeyDetailsSchema, bidDetailsSchema]
 
 
 
@@ -65,36 +63,40 @@ const Home: React.FC = () => {
     let [currentStep, setCurrentStep] = useState<number>(1);
     const [currentButtonLabel, setCurrentButtonLabel] = useState<string>("Enter Bid Details");
 
-    //  const 
-
-
     const totalStep = 4;
 
     const renderForm = (formik: FormikProps<formValues>) => {
         switch (currentStep) {
             case 1: return <JourneyForm formik={formik} isEdit={isEdit} handleEditDetail={() => handleEditDetail()} journeyDetails={formData} />
-            case 2: return <BidDetails formik={formik} enableNextButton={(priceLength: number) => setButtonDisable(!showBidForm && priceLength > 0 ? false : true)} showBidForm={showBidForm} enableOTPButton={(value: boolean) => {
-                console.log("value-->", value)
-
+            case 2: return <BidDetails formik={formik} enableNextButton={(priceLength: number) => setButtonDisable(!showBidForm && Number(priceLength) > 0 ? false : true)} showBidForm={showBidForm} enableOTPButton={(value: boolean) => {
                 setButtonDisable(!value)
             }} />
-            case 3: return <OtpForm formik={formik} handleOtpChange={(value:number)=> {
-                // handleOtpChange
-                console.log(value, "fds")
-                // formik.handleChange("otp")(value)
-            }
-            } />
+            case 3: return <OtpForm formik={formik} />
         }
 
 
     }
 
-    const validateOtp = (otpValue:number) => {
-        const otpArr = otpValue.toString().split("");
+    const validateOtp = (values:any, formik?:any) => {
+        const otpArr = otpValue.toString().split("")
+        let flag = false;
 
-        console.log(otpArr);
-        for(let i=1;i<otpArr.length;i++) {           
+        for(let i=0;i<otpArr.length;i++) {  
+            if(String(values[`otp${i+1}`]) == otpArr[i]) {
+                flag=true
+            } else {
+                flag=false
+            }
         }
+
+        if(flag === true) {
+            setCurrentStep(currentStep+1)
+            setCurrentButtonLabel("Submit Bid")
+        }
+    
+
+       
+       
         
     }
 
@@ -109,21 +111,20 @@ const Home: React.FC = () => {
                     <Details currentStep={currentStep} showBidForm={showBidForm} formData={formData} handleEditDetail={() => handleEditDetail()} />
 
                     <Formik
-                        initialValues={{sourceLocation:""}}
+                        initialValues={{sourceLocation:"", otp:""}}
                         validationSchema={validationSchema}
-                        onChange={(values: formValues) => console.log("values-->", values)}
                         onSubmit={(
                             values: formValues,
                         ) => {
-                            console.log("values-->", values)
                             setJourneyDetails(values);
                             if (currentStep === 1) {
 
                                 setEditable(!isEdit)
                                 setCurrentStep(currentStep + 1);
-                                setCurrentButtonLabel("Next")
-                                // setCurrentButtonLabel(`${!showBidForm ? "Next" : "Verify via OTP"}`);
+                                values.price && setBidForm(true);
+                                setCurrentButtonLabel(`${!values.price ? "Next" : "Verify via OTP"}`);
                                 setButtonDisable(true);
+                                
 
                             }
 
@@ -133,9 +134,6 @@ const Home: React.FC = () => {
                                 setCurrentButtonLabel("Verify via OTP");
                                 setButtonDisable(true);
                                 setSchema(bidDetailsSchema);
-                                // if(values.carType==="suv" && Number(values.noOfPerson) >5) {
-                                //    setErrors({})
-                                // }
                             }
 
                             if (currentStep === 2 && showBidForm) {
@@ -144,7 +142,7 @@ const Home: React.FC = () => {
                             }
 
                             if(currentStep ===3 ) {
-                                validateOtp(otpValue)
+                                validateOtp(values)
                             }
 
 
@@ -152,9 +150,9 @@ const Home: React.FC = () => {
                         }}
                     >
                         {formik => (
-                            console.log(formik, "formo"),
                             <Form>
                                 {renderForm(formik)}
+                                
                                 <Button name={currentButtonLabel} disabled={buttonDisable} />
                             </Form>
                         )}
